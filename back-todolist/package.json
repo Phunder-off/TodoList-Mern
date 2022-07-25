@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "mongodb": "^4.8.0",
+    "mongoose": "^6.4.6",
+    "nodemon": "^2.0.19"
+  },
+  "name": "back-todolist",
+  "version": "1.0.0",
+  "description": "Api Express pour ma togolist",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "nodemon index.js"
+  },
+  "author": "emmanuel caron",
+  "license": "ISC"
+}

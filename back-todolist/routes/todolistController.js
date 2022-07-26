@@ -23,4 +23,9 @@ router.post("/", (req, res) => {
 	});
 });
 
+router.delete("/:id", (req, res) => {
+	if (!ObjectId.isValid(req.params.id)) return res.status(400).send(`ID unknow : ${req.params.id}`);
+	TodoModel.findByIdAndRemove(req.params.id, (err, docs) => err ? console.log(`Delete error : ${err}`) :  res.send(docs));
+})
+
 module.exports = router;

@@ -6,6 +6,7 @@ import EmptyCard from "../components/EmptyCard";
 
 const TodoList = () => {
 	const [data, setData] = useState([]);
+	const [updateCard, setUpdateCard] = useState();
 
 	useEffect(() => {
 		axios.get("http://localhost:3001/todolist").then((res) => setData(res.data));
@@ -15,9 +16,10 @@ const TodoList = () => {
 		<>
 			<Navigation />
 			<ul>
-				<AddCard />
+				<EmptyCard action="add"/>
+				{updateCard}
 				{data.map((todo) => (
-					<Card key={todo._id} id={todo._id} todo={todo} />
+					<Card key={todo._id} id={todo._id} todo={todo} setUpdateCard={setUpdateCard}/>
 				))}
 			</ul>
 		</>

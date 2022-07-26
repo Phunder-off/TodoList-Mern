@@ -19,13 +19,28 @@ router.post("/", (req, res) => {
 	});
 
 	newRecord.save((err, docs) => {
-		!err ? res.send(docs) : console.log(`Error creating new data ! ${err}`);
+		err ? console.log(`Error creating new data ! ${err}`) : res.send(docs);
 	});
 });
 
 router.delete("/:id", (req, res) => {
 	if (!ObjectId.isValid(req.params.id)) return res.status(400).send(`ID unknow : ${req.params.id}`);
-	TodoModel.findByIdAndRemove(req.params.id, (err, docs) => err ? console.log(`Delete error : ${err}`) :  res.send(docs));
-})
+	TodoModel.findByIdAndRemove(req.params.id, (err, docs) => (err ? console.log(`Delete error : ${err}`) : res.send(docs)));
+});
+
+router.put("/:id", (req, res) => {
+	if (!ObjectId.isValid(req.params.id)) return res.status(400).send(`ID unknow : ${req.params.id}`);
+
+	const updateRecord = {
+		author: req.body.author,
+		title: req.body.title,
+		description: req.body.description,
+		do: req.body.do,
+	};
+
+	TodoModel.findByIdAndUpdate(req.params.id, { $set: updateRecord }, { new: true }, (err, docs) => {
+		err ? console.log(`Update error ${err}`) : res.send(docs);
+	});
+});
 
 module.exports = router;

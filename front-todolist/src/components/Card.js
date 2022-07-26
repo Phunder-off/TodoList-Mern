@@ -1,12 +1,13 @@
 import axios from "axios";
+import UpdateCard from "./UpdateCard";
 
-const Card = ({ id, todo }) => {
+const Card = ({ id, todo, setUpdateCard }) => {
 	let deleteCard = (id) => {
 		axios.delete(`http://localhost:3001/todolist/${id}`);
 	};
 
-	let updateCard = (id, info) => {
-		return <EmptyCard action={(id, info)} />;
+	let updateCard = (id, data) => {
+		setUpdateCard(<UpdateCard id={id} data={data} setUpdateCard={setUpdateCard}/>);
 	};
 
 	return (
@@ -17,7 +18,7 @@ const Card = ({ id, todo }) => {
 			<input type="checkbox" defaultChecked={todo.do} />
 			<br />
 			<button onClick={() => deleteCard(id)}>Delete</button>
-			<button onClick={() => updateCard(id)}>Update</button>
+			<button onClick={() => updateCard(id, todo, setUpdateCard)}>Update</button>
 		</li>
 	);
 };

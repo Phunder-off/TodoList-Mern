@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Navigation from "../components/Navigation";
 import Card from "../components/Card";
 import EmptyCard from "../components/EmptyCard";
+import { getTasks } from "../services/todolistServices";
 
 const TodoList = () => {
-	const [data, setData] = useState([]);
+	const [tasks, setTasks] = useState([]);
 	const [updateCard, setUpdateCard] = useState();
 
 	useEffect(() => {
-		axios.get("http://localhost:3001/todolist").then((res) => setData(res.data));
-	}, [data]);
+		getTasks(setTasks);
+	}, []);
 
 	return (
 		<>
 			<Navigation />
 			<ul>
-				<EmptyCard action="add"/>
+				<EmptyCard setTasks={setTasks} />
 				{updateCard}
-				{data.map((todo) => (
-					<Card key={todo._id} id={todo._id} todo={todo} setUpdateCard={setUpdateCard}/>
-				))}
+				{tasks
+					.filter((task) => task.done === false)
+					.map((task) => (
+						<Card key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
+					))}
+			</ul>
+			<ul>
+				{tasks
+					.filter((task) => task.done === true)
+					.map((task) => (
+						<Card key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
+					))}
 			</ul>
 		</>
 	);

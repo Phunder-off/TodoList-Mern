@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
 		author: req.body.author,
 		title: req.body.title,
 		description: req.body.description,
-		do: req.body.do,
+		done: req.body.done,
 	});
 
 	newRecord.save((err, docs) => {
@@ -35,7 +35,7 @@ router.put("/:id", (req, res) => {
 		author: req.body.author,
 		title: req.body.title,
 		description: req.body.description,
-		do: req.body.do,
+		done: req.body.done,
 	};
 
 	TodoModel.findByIdAndUpdate(req.params.id, { $set: updateRecord }, { new: true }, (err, docs) => {

@@ -1,15 +1,11 @@
-import axios from "axios";
 import { useState } from "react";
+import { createTask } from "../services/todolistServices";
 
-const EmptyCard = () => {
+const EmptyCard = ({ setTasks }) => {
 	const [title, setTitle] = useState();
 	const [description, setDescription] = useState();
 	const [author, setAuthor] = useState();
-
-	let actionButton = (e) => {
-		e.preventDefault();
-		axios.post(`http://localhost:3001/todolist/`, { title, description, author });
-	};
+	const [textButton, setTextButton] = useState("Add");
 
 	return (
 		<li>
@@ -19,18 +15,23 @@ const EmptyCard = () => {
 				<br />
 
 				<label htmlFor="description">Description :</label>
-				<input type="text" name="description" id="description"  onChange={(e) => setDescription(e.target.value)} />
+				<input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} />
 
 				<br />
 				<label htmlFor="author">Auteur :</label>
 				<input type="text" name="author" id="author" onChange={(e) => setAuthor(e.target.value)} />
 
 				<button
+					type="button"
 					onClick={(e) => {
-						actionButton(e);
+						if (title == null || description == null || author == null) {
+							return;
+						}
+						setTextButton("loading ...");
+						createTask({ title, description, author }, setTasks, () => setTextButton("Add"));
 					}}
 				>
-					Add
+					{textButton}
 				</button>
 			</form>
 		</li>

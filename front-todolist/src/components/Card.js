@@ -1,24 +1,35 @@
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { deleteTask, updateTask } from "../services/todolistServices";
 import UpdateCard from "./UpdateCard";
 
-const Card = ({ id, todo, setUpdateCard }) => {
-	let deleteCard = (id) => {
-		axios.delete(`http://localhost:3001/todolist/${id}`);
-	};
+const Card = ({ id, task, setUpdateCard, setTasks }) => {
+	const [done, setDone] = useState(false);
+	const [textButton, setTextButton] = useState("Add");
 
-	let updateCard = (id, data) => {
-		setUpdateCard(<UpdateCard id={id} data={data} setUpdateCard={setUpdateCard}/>);
+	useEffect(() => {
+		setDone(task.done);
+	}, [task.done]);
+
+	let updateDone = (id) => {
+		setDone(!done);
+		updateTask(id, { done }, setTasks);
 	};
 
 	return (
 		<li className="card">
-			<h2>{todo.title}</h2>
-			<p>{todo.description}</p>
-			<h5>{todo.author}</h5>
-			<input type="checkbox" defaultChecked={todo.do} />
+			<h2>{task.title}</h2>
+			<p>{task.description}</p>
+			<h5>{task.author}</h5>
+			<input type="checkbox" defaultChecked={done} onClick={(e) => updateDone(id)} />
 			<br />
-			<button onClick={() => deleteCard(id)}>Delete</button>
-			<button onClick={() => updateCard(id, todo, setUpdateCard)}>Update</button>
+			<button
+				onClick={() => {
+					deleteTask(id, setTasks, );
+				}}
+			>
+				{textButton}
+			</button>
+			<button onClick={() => setUpdateCard(<UpdateCard id={id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />)}>Update</button>
 		</li>
 	);
 };

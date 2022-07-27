@@ -15,7 +15,7 @@ const TodoModel = mongoose.model(
 			type: String,
 			required: true,
 		},
-        do: {
+        done: {
 			type: Boolean,
             default: false,
 		},

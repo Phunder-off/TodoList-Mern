@@ -5,7 +5,7 @@ const UpdateCard = ({ id, task, setUpdateCard, setTasks}) => {
 	const [title, setTitle] = useState();
 	const [description, setDescription] = useState();
 	const [author, setAuthor] = useState();
-	const [textButton, setTextButton] = useState("Add");
+	const [textButton, setTextButton] = useState("Update");
 
 	return (
 		<li>
@@ -24,7 +24,7 @@ const UpdateCard = ({ id, task, setUpdateCard, setTasks}) => {
 				<button
 					onClick={(e) => {
 						setTextButton("loading ...");
-						updateTask(id, { title, description, author }, setTasks, () => setTextButton("Add"));
+						updateTask(id, { title, description, author }, setTasks, () => setTextButton("Update"));
 						setUpdateCard("");
 					}}
 				>

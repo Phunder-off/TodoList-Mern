@@ -1,25 +1,31 @@
 import { useState } from "react";
 import { createTask } from "../services/todolistServices";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 
 const EmptyCard = ({ setTasks }) => {
 	const [title, setTitle] = useState();
 	const [description, setDescription] = useState();
 	const [author, setAuthor] = useState();
-	const [textButton, setTextButton] = useState("Add");
+	const [textButtonAdd, setTextButton] = useState("Add");
 
 	return (
-		<li>
-			<form>
-				<label htmlFor="title">Tache :</label>
-				<input type="text" name="title" id="title" onChange={(e) => setTitle(e.target.value)} />
-				<br />
+		<Card>
+			<Form>
+				<Form.Group className="mb-3">
+					<Form.Label htmlFor="title">Tache :</Form.Label>
+					<Form.Control type="text"  name="title" id="title" placeholder="Title of Task" onChange={(e) => setTitle(e.target.value)}/>
+				</Form.Group>
 
-				<label htmlFor="description">Description :</label>
-				<input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} />
+				<Form.Group className="mb-3">
+					<Form.Label htmlFor="description">Description :</Form.Label>
+					<Form.Control type="text" name="description" id="description" placeholder="Description of Task" onChange={(e) => setDescription(e.target.value)}/>
+				</Form.Group>
 
-				<br />
-				<label htmlFor="author">Auteur :</label>
-				<input type="text" name="author" id="author" onChange={(e) => setAuthor(e.target.value)} />
+				<Form.Group className="mb-3">
+					<Form.Label htmlFor="author">Auteur :</Form.Label>
+					<Form.Control type="text" name="author" id="author" placeholder="Auteur of Task" onChange={(e) => setAuthor(e.target.value)}/>
+				</Form.Group>
 
 				<button
 					type="button"
@@ -31,10 +37,10 @@ const EmptyCard = ({ setTasks }) => {
 						createTask({ title, description, author }, setTasks, () => setTextButton("Add"));
 					}}
 				>
-					{textButton}
+					{textButtonAdd}
 				</button>
-			</form>
-		</li>
+			</Form>
+		</Card>
 	);
 };
 

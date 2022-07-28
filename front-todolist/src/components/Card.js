@@ -10,13 +10,21 @@ const TaskCard = ({ id, task, setUpdateCard, setTasks }) => {
 	const [done, setDone] = useState(false);
 	const [textButtonDelete, setTextButtonDelete] = useState("Delete");
 	const [textButtonDone, setTextButtonDone] = useState("Done");
+	const [grap, setGrap] = useState(false);
 
 	useEffect(() => {
 		setDone(task.done);
 	}, [task.done]);
 
 	return (
-		<Card className="mb-2">
+		<Card
+			className="mb-2"
+			onC lick={() => {
+				
+				setGrap(!grap);
+				console.log(grap);
+			}}
+		>
 			<Card.Header as="h5" className="text-center">
 				{task.title}
 			</Card.Header>
@@ -34,7 +42,9 @@ const TaskCard = ({ id, task, setUpdateCard, setTasks }) => {
 					value="1"
 					onChange={(e) => {
 						setDone(e.currentTarget.checked);
-						updateTask(id, { done : e.currentTarget.checked }, setTasks, () => {setTextButtonDone("Done")});
+						updateTask(id, { done: e.currentTarget.checked }, setTasks, () => {
+							setTextButtonDone("Done");
+						});
 					}}
 				>
 					{textButtonDone}

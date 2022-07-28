@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
-import Card from "../components/Card";
+import TaskCard from "../components/Card";
 import EmptyCard from "../components/EmptyCard";
 import { getTasks } from "../services/todolistServices";
 import Container from "react-bootstrap/Container";
@@ -17,34 +17,33 @@ const TodoList = () => {
 
 	return (
 		<>
-			<Navigation />
-			<Container>
-				<Row>
-					<Col>
-					<EmptyCard setTasks={setTasks} />
-					</Col>
-					<Col>
-						<ul>
-							
+			<header>
+				<Navigation />
+			</header>
+			<main className="pt-5">
+				<Container className="h-100">
+					<Row>
+						<Col xs="12" md="4">
 							{updateCard}
+							<EmptyCard setTasks={setTasks} />
+						</Col>
+						<Col>
 							{tasks
 								.filter((task) => task.done === false)
 								.map((task) => (
-									<Card key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
+									<TaskCard key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
 								))}
-						</ul>
-					</Col>
-					<Col>
-						<ul>
+						</Col>
+						<Col>
 							{tasks
 								.filter((task) => task.done === true)
 								.map((task) => (
-									<Card key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
+									<TaskCard key={task._id} id={task._id} task={task} setUpdateCard={setUpdateCard} setTasks={setTasks} />
 								))}
-						</ul>
-					</Col>
-				</Row>
-			</Container>
+						</Col>
+					</Row>
+				</Container>
+			</main>
 		</>
 	);
 };

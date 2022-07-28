@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createTask } from "../services/todolistServices";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const EmptyCard = ({ setTasks }) => {
 	const [title, setTitle] = useState();
@@ -10,36 +11,42 @@ const EmptyCard = ({ setTasks }) => {
 	const [textButtonAdd, setTextButton] = useState("Add");
 
 	return (
-		<Card>
-			<Form>
-				<Form.Group className="mb-3">
-					<Form.Label htmlFor="title">Tache :</Form.Label>
-					<Form.Control type="text"  name="title" id="title" placeholder="Title of Task" onChange={(e) => setTitle(e.target.value)}/>
-				</Form.Group>
+		<Card className="mb-2">
+			<Card.Header as="h4" className="text-center">Add Task</Card.Header>
+			<Card.Body>
 
-				<Form.Group className="mb-3">
-					<Form.Label htmlFor="description">Description :</Form.Label>
-					<Form.Control type="text" name="description" id="description" placeholder="Description of Task" onChange={(e) => setDescription(e.target.value)}/>
-				</Form.Group>
+				<Form className="p-2">
+					<Form.Group className="mb-3">
+						<Form.Label htmlFor="title">Title :</Form.Label>
+						<Form.Control type="text" name="title" id="title" placeholder="Title of Task" onChange={(e) => setTitle(e.target.value)} />
+					</Form.Group>
 
-				<Form.Group className="mb-3">
-					<Form.Label htmlFor="author">Auteur :</Form.Label>
-					<Form.Control type="text" name="author" id="author" placeholder="Auteur of Task" onChange={(e) => setAuthor(e.target.value)}/>
-				</Form.Group>
+					<Form.Group className="mb-3">
+						<Form.Label htmlFor="description">Description :</Form.Label>
+						<Form.Control as="textarea" name="description" id="description" placeholder="Description of Task" onChange={(e) => setDescription(e.target.value)} />
+					</Form.Group>
 
-				<button
-					type="button"
-					onClick={(e) => {
-						if (title == null || description == null || author == null) {
-							return;
-						}
-						setTextButton("loading ...");
-						createTask({ title, description, author }, setTasks, () => setTextButton("Add"));
-					}}
-				>
-					{textButtonAdd}
-				</button>
-			</Form>
+					<Form.Group className="mb-3">
+						<Form.Label htmlFor="author">Author :</Form.Label>
+						<Form.Control type="text" name="author" id="author" placeholder="Auteur of Task" onChange={(e) => setAuthor(e.target.value)} />
+					</Form.Group>
+
+					<Button
+						className="w-100"
+						variant="primary"
+						type="button"
+						onClick={(e) => {
+							if (title == null || description == null || author == null) {
+								return;
+							}
+							setTextButton("loading ...");
+							createTask({ title, description, author }, setTasks, () => setTextButton("Add"));
+						}}
+					>
+						{textButtonAdd}
+					</Button>
+				</Form>
+			</Card.Body>
 		</Card>
 	);
 };

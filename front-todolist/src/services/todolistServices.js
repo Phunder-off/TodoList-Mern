@@ -30,3 +30,9 @@ export const updateTask = (id, data, setTasks, then) => {
 		thenRequest(setTasks, then);
 	});
 };
+
+export const patchTask = (id, data, setTasks, then) => {
+	axios.patch(apiLink + id, data).then((res) => {
+		thenRequest(setTasks, then);
+	});
+};

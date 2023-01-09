@@ -1,5 +1,5 @@
 const express = require("express");
-const { TodoModel } = require("../models/TodoModel.js");
+const { TodoModel } = require("../models/TodoModel");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const router = express.Router();

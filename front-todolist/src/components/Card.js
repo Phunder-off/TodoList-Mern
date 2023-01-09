@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteTask, updateTask } from "../services/todolistServices";
+import { deleteTask, patchTask, updateTask } from "../services/todolistServices";
 import UpdateCard from "./UpdateCard";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -42,7 +42,7 @@ const TaskCard = ({ id, task, setUpdateCard, setTasks }) => {
 					value="1"
 					onChange={(e) => {
 						setDone(e.currentTarget.checked);
-						updateTask(id, { done: e.currentTarget.checked }, setTasks, () => {
+						patchTask(id, { done: e.currentTarget.checked }, setTasks, () => {
 							setTextButtonDone("Done");
 						});
 					}}

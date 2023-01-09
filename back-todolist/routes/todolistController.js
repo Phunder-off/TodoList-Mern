@@ -43,4 +43,16 @@ router.put("/:id", (req, res) => {
 	});
 });
 
+router.patch("/:id", (req, res) => {
+	if (!ObjectId.isValid(req.params.id)) return res.status(400).send(`ID unknow : ${req.params.id}`);
+
+	const updateRecord = {
+		done: req.body.done,
+	};
+
+	TodoModel.findByIdAndUpdate(req.params.id, { $set: updateRecord }, { new: true }, (err, docs) => {
+		err ? console.log(`Update error ${err}`) : res.send(docs);
+	});
+});
+
 module.exports = router;
